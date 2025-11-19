@@ -68,7 +68,7 @@ try {
             }
         }
         
-        // HASH A SENHA (importante: faça isso mesmo na edição!)
+        // HASH A SENHA (importante!)
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
         $query = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, senha = :senha, nivel = :nivel WHERE id = :id");

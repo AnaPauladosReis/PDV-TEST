@@ -1,5 +1,5 @@
 <?php
-// A sessão DEVE ser iniciada no topo, antes de qualquer saída de HTML.
+// LEMBRAR: A sessão DEVE ser iniciada no topo, antes de qualquer saída de HTML.
 session_start();
 
 require_once('conexao.php');
@@ -7,7 +7,7 @@ require_once('conexao.php');
 // 1. Validar se os dados vieram (boa prática)
 if (empty($_POST['email']) || empty($_POST['senha'])) {
     $_SESSION['login_error'] = 'Por favor, preencha o email e a senha.';
-    header('Location: index.php'); // index.php é a página de login
+    header('Location: index.php'); 
     exit();
 }
 
@@ -20,7 +20,6 @@ try {
     $query->bindValue(':email', $email);
     $query->execute();
     
-    // fetch() é mais eficiente
     $usuario = $query->fetch(PDO::FETCH_ASSOC); 
 
     // 3. Verificar se o usuário existe E se a senha está correta
@@ -31,7 +30,7 @@ try {
         session_regenerate_id(true); 
 
         // 4. Salvar dados importantes na sessão
-        $_SESSION['id_usuario'] = $usuario['id']; // Salvar o ID é muito útil
+        $_SESSION['id_usuario'] = $usuario['id']; 
         $_SESSION['nome_usuario'] = $usuario['nome'];
         $_SESSION['nivel_usuario'] = $usuario['nivel'];
 
@@ -42,7 +41,7 @@ try {
             header('Location: login/painel-adm/index.php'); 
             exit();
         } else if ($nivel == 'Cliente') {
-            // Supondo que você tenha um painel de cliente
+            // Fazer a pagina do cliente até 22 de Novembro
             header('Location: login/painel-cliente/index.php'); 
             exit();
         } else {
@@ -61,7 +60,6 @@ try {
 } catch (PDOException $e) {
     // Tratar erro de banco de dados
     $_SESSION['login_error'] = 'Erro no sistema. Tente mais tarde.';
-    // Em produção, você deve logar $e->getMessage() em um arquivo, não para o usuário.
     header('Location: index.php');
     exit();
 }
