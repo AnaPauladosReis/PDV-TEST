@@ -37,7 +37,7 @@ try {
         // 5. Redirecionar com base no nível
         $nivel = $usuario['nivel'];
         if ($nivel == 'Administrador') {
-            // Caminho correto baseado na sua imagem
+            // Caminho correto para o painel do administrador
             header('Location: login/painel-adm/index.php'); 
             exit();
         } else if ($nivel == 'Cliente') {
